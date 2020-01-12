@@ -129,6 +129,8 @@ def parser(str):
     while j < len(array_of_ops):
         if root.operation == '+' and array_of_ops[j].operation == '*':
             root = combine_right_prio(root,array_of_ops[j])
+        elif root.operation == '+' and array_of_ops[j].operation == '/':
+            root = combine_right_prio(root,array_of_ops[j])
         else:
             root = combine_left_prio(root,array_of_ops[j])
         j+=1
@@ -146,28 +148,33 @@ def eval(root):
     #Recursion: Cases where left node, right node, or both nodes are not numbers
     if type(root.left) == Number and type(root.right)!= Number:
         if type(root) == Add:
-            return eval(root.right)+root.left.value
-        else:
-            return eval(root.right)*root.left.value
+            return root.left.value + eval(root.right)
+        elif type(root) == Mul:
+            return root.left.value + eval(root.right)
+        elif type(root) == Div:
+            return root.left.value // eval(root.right)
 
     if type(root.left) != Number and type(root.right) == Number:
-        if type(root)==Add:
+        if type(root)== Add:
             return eval(root.left)+root.right.value
-        else:
+        elif type(root) == Div:
             return eval(root.left)*root.right.value
+        elif type(root) == Div:
+            return eval(root.left)//root.right.value
     if type(root.left)!= Number and type(root.right) != Number:
         if type(root)==Add:
             return eval(root.left)+eval(root.right)
-        else:
+        elif type(root) == Mul:
             return eval(root.left)*eval(root.right)
+        elif type(root) == Div:
+            return eval(root.left)//eval(root.right)
 
 
-a = parser('3 * -1 + 6 *8 + 9 * 10 / -100')
-#print(eval(a))
+a = parser('2/5 + 6*7')
+print(eval(a))
 
 
-
-
-#### Added token + class for div, just need to change logic for +,*,/ when evaluating
+#### Added token + class for div and added logic. Need to fix tree.
+###
 
 #test
