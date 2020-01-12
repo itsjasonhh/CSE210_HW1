@@ -137,10 +137,12 @@ def parser(str):
 def eval(root):
     #Base case
     if type(root.left) == Number and type(root.right) == Number:
-        if type(root)==Add:
+        if type(root)== Add:
             return root.left.value + root.right.value
-        else:
+        elif type(root) == Mul:
             return root.left.value * root.right.value
+        elif type(root) == Div:
+            return root.left.value // root.right.value
     #Recursion: Cases where left node, right node, or both nodes are not numbers
     if type(root.left) == Number and type(root.right)!= Number:
         if type(root) == Add:
