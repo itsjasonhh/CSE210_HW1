@@ -1,5 +1,5 @@
 class Token(object):
-    #Creates token objects with type (Integer, Mul, Add) and value (0,1,2,3,4,5,6,7,8,9, *, +)
+    #Creates token objects with type (Integer, Mul, Add) and value (0,1,2,3,4,5,6,7,8,9, *, +,/)
     #value is a number for numbers and a string for * or +
     def __init__(self,type,value):
         self.type = type
@@ -50,6 +50,9 @@ class Reader(object):
             if self.curr_char == '*':
                 self.move_next_char()
                 return Token("Mul",'*')
+            if self.curr_char == '/':
+                self.move_next_char()
+                return Token("Div",'/')
 #For data structure
 
 class Number(object):
@@ -68,6 +71,13 @@ class Add(object):
     def __init__(self, token):
         self.token = token
         self.operation = '+'
+        self.left = None
+        self.right = None
+
+class Div(object):
+    def __init__(self,token):
+        self.token = token
+        self.operation = '/'
         self.left = None
         self.right = None
 
@@ -93,6 +103,8 @@ def parser(str):
             temp = Mul(i)
         if i.type == "Add":
             temp = Add(i)
+        if i.type == "Div":
+            temp = Div(i)
         array_of_nodes.append(temp)
 
     #Assign left and right Integer tokens to Add/Mul operator tokens, also create new array of operator nodes ONYLY
@@ -103,7 +115,6 @@ def parser(str):
         array_of_nodes[i+1].right = array_of_nodes[i+2]
         array_of_ops.append(array_of_nodes[i+1])
         i = i+2
-
 
     root = array_of_ops[0]
     #Function for combining trio with left priority, returns node which should be root
@@ -123,44 +134,40 @@ def parser(str):
         j+=1
     return root
 
-#Determines add or multiply: True for add, False for multiply
-def isAdd(root):
-    if root.operation == '+':
-        return True
-    else:
-        return False
-
 def eval(root):
     #Base case
     if type(root.left) == Number and type(root.right) == Number:
-        if isAdd(root):
+        if type(root)== Add:
             return root.left.value + root.right.value
-        else:
+        elif type(root) == Mul:
             return root.left.value * root.right.value
+        elif type(root) == Div:
+            return root.left.value // root.right.value
     #Recursion: Cases where left node, right node, or both nodes are not numbers
     if type(root.left) == Number and type(root.right)!= Number:
-        if isAdd(root):
+        if type(root) == Add:
             return eval(root.right)+root.left.value
         else:
             return eval(root.right)*root.left.value
 
     if type(root.left) != Number and type(root.right) == Number:
-        if isAdd(root):
+        if type(root)==Add:
             return eval(root.left)+root.right.value
         else:
             return eval(root.left)*root.right.value
     if type(root.left)!= Number and type(root.right) != Number:
-        if isAdd(root):
+        if type(root)==Add:
             return eval(root.left)+eval(root.right)
         else:
             return eval(root.left)*eval(root.right)
 
 
-a = parser('3 * 8 + 9 * 10')
-print(eval(a))
+a = parser('3 * -1 + 6 *8 + 9 * 10 / -100')
+#print(eval(a))
 
 
 
 
+#### Added token + class for div, just need to change logic for +,*,/ when evaluating
 
-
+#test
