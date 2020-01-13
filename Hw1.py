@@ -159,22 +159,14 @@ def eval(root):
         if type(root) == Add:
             return root.left.value + eval(root.right)
         elif type(root) == Mul:
-<<<<<<< HEAD
             return root.left.value * eval(root.right)
-=======
-            return root.left.value + eval(root.right)
->>>>>>> e7a59291695bfa23ccc034c84c8af7c5050f3736
         elif type(root) == Div:
             return root.left.value // eval(root.right)
 
     if type(root.left) != Number and type(root.right) == Number:
         if type(root)== Add:
             return eval(root.left)+root.right.value
-<<<<<<< HEAD
         elif type(root) == Mul:
-=======
-        elif type(root) == Div:
->>>>>>> e7a59291695bfa23ccc034c84c8af7c5050f3736
             return eval(root.left)*root.right.value
         elif type(root) == Div:
             return eval(root.left)//root.right.value
@@ -185,22 +177,10 @@ def eval(root):
             return eval(root.left)*eval(root.right)
         elif type(root) == Div:
             return eval(root.left)//eval(root.right)
-<<<<<<< HEAD
 
 
 
 #### Added token + class for div and added logic. Need to fix tree.
 ###
 
-=======
-
-
-a = parser('2/5 + 6*7')
-print(eval(a))
-
-
-#### Added token + class for div and added logic. Need to fix tree.
-###
-
->>>>>>> e7a59291695bfa23ccc034c84c8af7c5050f3736
 #test
