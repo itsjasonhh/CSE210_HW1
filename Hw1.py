@@ -107,16 +107,16 @@ def parser(str):
             temp = Div(i)
         array_of_nodes.append(temp)
     #Check that the array of nodes is a valid arithmetic expression
-    #for i in range(0,len(array_of_nodes)):
-     #   if i%2==0:
-      #      if type(array_of_nodes[i]) != Number:
-       #         print("Invalid input!")
-        #        return
-        #if i%2 == 1:
-         #   if type(array_of_nodes[i]) != Add or type(array_of_nodes[i]) != Mul or type(array_of_nodes[i]) != Div:
-          #      print("Invalid input")
-           #     return
-    #Assign left and right Integer tokens to Add/Mul operator tokens, also create new array of operator nodes ONYLY
+    for i in range(0,len(array_of_nodes)):
+        if i%2==0:
+            if type(array_of_nodes[i]) != Number:
+                print("Invalid input!")
+                return
+        if i%2 == 1:
+            if type(array_of_nodes[i]) != Add and type(array_of_nodes[i]) != Mul and type(array_of_nodes[i]) != Div:
+                print("Invalid input")
+                return
+    #Assign left and right Integer tokens to Add/Mul operator tokens, also create new array of operator nodes ONlY
     array_of_ops = []
     i = 0
     while i < len(array_of_nodes)-1:
@@ -179,8 +179,3 @@ def eval(root):
             return eval(root.left)//eval(root.right)
 
 
-
-#### Added token + class for div and added logic. Need to fix tree.
-###
-
-#test
