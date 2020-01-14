@@ -1,2 +1,2 @@
 arith:
-	cp HW1.py arith
+	cp Hw1.py arith

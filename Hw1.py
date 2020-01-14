@@ -13,7 +13,7 @@ class Token(object):
 
 
 class Reader(object):
-
+    #Ideas taken from https://ruslanspivak.com/lsbasi-part7/
     #Creates char-by-char reader of string text
     def __init__(self, text):
         self.text = text
