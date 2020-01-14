@@ -1,3 +1,4 @@
+import sys
 class Token(object):
     #Creates token objects with type (Integer, Mul, Add) and value (0,1,2,3,4,5,6,7,8,9, *, +,/)
     #value is a number for numbers and a string for * or +
@@ -106,12 +107,14 @@ def parser(str):
     for i in range(0,len(array_of_nodes)):
         if i%2==0:
             if type(array_of_nodes[i]) != Number:
-                print("Invalid input!")
-                return
+                #print("Invalid input!")
+                sys.exit('Invalid input!')
+                #return
         if i%2 == 1:
             if type(array_of_nodes[i]) != Add and type(array_of_nodes[i]) != Mul and type(array_of_nodes[i]) != Div:
-                print("Invalid input")
-                return
+                #print("Invalid input")
+                sys.exit('Invalid input!')
+                #return
     #Assign left and right Integer tokens to Add/Mul operator tokens, also create new array of operator nodes ONlY
     array_of_ops = []
     i = 0
@@ -144,7 +147,8 @@ def parser(str):
 def eval(root):
     #Error Checker
     if type(root)!= Add and type(root)!= Mul and type(root)!= Div:
-        print("Invalid input!")
+        #print("Invalid input!")
+        sys.exit('Invalid input!')
         return
 
     #Base case
@@ -180,4 +184,4 @@ def eval(root):
             return eval(root.left)//eval(root.right)
 
 
-print(eval(parser('3*7/+4')))
+
