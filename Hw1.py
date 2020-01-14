@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import sys
 class Token(object):
     #Creates token objects with type (Integer, Mul, Add) and value (0,1,2,3,4,5,6,7,8,9, *, +,/)
@@ -149,7 +151,6 @@ def eval(root):
     if type(root)!= Add and type(root)!= Mul and type(root)!= Div:
         #print("Invalid input!")
         sys.exit('Invalid input!')
-        return
 
     #Base case
     if type(root.left) == Number and type(root.right) == Number:
@@ -183,5 +184,5 @@ def eval(root):
         elif type(root) == Div:
             return eval(root.left)//eval(root.right)
 
-
-
+expression = input()
+print(eval(parser(expression)))
