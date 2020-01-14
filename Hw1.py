@@ -89,10 +89,6 @@ def parser(str):
     #Create list of all tokens
     while a.curr_char is not None:
         array_of_tokens.append(a.tokenizer())
-    #Throws error if * or + are at beginning of sentence
-    if array_of_tokens[0].type != "Integer":
-        print("Invalid input!")
-        return
     #create array of nodes
     array_of_nodes = []
     #converting array of tokens to array of nodes
@@ -146,6 +142,11 @@ def parser(str):
     return root
 
 def eval(root):
+    #Error Checker
+    if type(root)!= Add and type(root)!= Mul and type(root)!= Div:
+        print("Invalid input!")
+        return
+
     #Base case
     if type(root.left) == Number and type(root.right) == Number:
         if type(root)== Add:
@@ -179,3 +180,4 @@ def eval(root):
             return eval(root.left)//eval(root.right)
 
 
+print(eval(parser('3*7/+4')))
