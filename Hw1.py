@@ -159,6 +159,8 @@ def eval(root):
         elif type(root) == Mul:
             return root.left.value * root.right.value
         elif type(root) == Div:
+            if root.right.value == 0:
+                sys.exit("Can't divide by 0!")
             return root.left.value // root.right.value
     #Recursion: Cases where left node, right node, or both nodes are not numbers
     if type(root.left) == Number and type(root.right)!= Number:
